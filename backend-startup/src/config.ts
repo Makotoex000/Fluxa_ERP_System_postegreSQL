@@ -5,11 +5,11 @@ export const JWT_SECRET = 'SuaChaveSecretaMuitoSeguraAqui123!@#$';
 export const SERVER_PORT = 3000;
 
 const DB_USER = 'fluxa_app_user';     
-const DB_PASSWORD = 'sergio'; 
+const DB_PASSWORD = 'senhasegurapracaralho'; 
 
 export const sqlConfig: MSSQLConfig = {
 
-  server: 'DESKTOP-8OAV9DP', 
+  server: 'KUROI', 
   database: 'FluxaDB',        
   port: 1433,                 
 
