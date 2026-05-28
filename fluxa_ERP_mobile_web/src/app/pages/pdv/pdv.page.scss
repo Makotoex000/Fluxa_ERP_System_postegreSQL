@@ -1,0 +1,104 @@
+/* Container do Carrinho Flutuante de Vidro */
+.custom-cart-footer {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: rgba(13, 12, 29, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+  padding: 16px;
+  z-index: 100;
+}
+
+.cart-preview-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Chips escuros com acento em Neon Blue */
+.custom-cart-chip {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  gap: 8px;
+
+  .chip-qty {
+    color: #4cc9f0;
+    font-weight: 800;
+    text-shadow: 0 0 6px rgba(76, 201, 240, 0.3);
+  }
+
+  .chip-close-icon {
+    color: #8b8ba8;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.1s ease;
+    
+    &:active {
+      color: #f72585;
+    }
+  }
+}
+
+/* Botão de Finalização no Degradê Oficial Vanaheim */
+.btn-submit-sale-cyber {
+  background: linear-gradient(135deg, #f72585 0%, #7209b7 100%);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 14px 22px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 20px rgba(247, 37, 133, 0.4);
+  transition: all 0.15s ease-in-out;
+
+  &:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+
+  &[disabled] {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: transparent;
+    color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+  }
+}
+/* Adicione isso ao seu pdv.page.scss */
+.custom-cart-footer {
+  animation: slideUpContent 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpContent {
+  from {
+    transform: translateY(100%) scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}

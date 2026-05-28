@@ -1,0 +1,168 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: #0d0c1d; --border-width: 0; padding: 4px 8px;">
+    <ion-title slot="start">
+      <span style="font-weight: 800; color: #ffffff; font-size: 1.3rem; letter-spacing: -0.5px;">
+        Fluxa<span style="color: #f72585;">ERP</span>
+      </span>
+    </ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)='sair()' style="
+        --color: #f72585;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-transform: none;
+      ">
+        Sair
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);">
+
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div style="padding: 24px 16px 16px; border-left: 4px solid #f72585; margin: 16px 16px 8px; padding-left: 12px;">
+    <h1 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; text-transform: uppercase;">
+      Dashboard
+    </h1>
+    <p style="margin: 4px 0 0; color: #8b8ba8; font-size: 0.88rem; font-weight: 500;">
+      Visão geral do seu negócio.
+    </p>
+  </div>
+
+  <div class="responsive-container" *ngIf="carregando" style="padding: 0 16px;">
+    <ion-skeleton-text animated style="height: 120px; border-radius: 14px; margin-bottom: 12px; --background: rgba(255,255,255,0.04); --background-animated: rgba(255,255,255,0.08);">
+    </ion-skeleton-text>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <ion-skeleton-text *ngFor="let i of" animated style="height: 100px; border-radius: 14px; --background: rgba(255,255,255,0.04); --background-animated: rgba(255,255,255,0.08);">
+      </ion-skeleton-text>
+    </div>
+  </div>
+
+  <div class="responsive-container" *ngIf="!carregando">
+    <div style="
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      margin: 8px 16px 16px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    ">
+      <div style="position: absolute; top: -40px; right: -40px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(76,201,240,0.15) 0%, transparent 70%); pointer-events: none;"></div>
+
+      <p style="color: #8b8ba8; font-size: 0.78rem; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 1px;">
+        Receita Total (Vendas)
+      </p>
+      <h2 style="color: #ffffff; font-size: 2rem; font-weight: 800; margin: 10px 0; letter-spacing: -0.5px;">
+        {{ moeda(receitaTotal) }}
+      </h2>
+      <div style="display: flex; align-items: center;">
+        <span style="background: rgba(114, 9, 183, 0.2); color: #4cc9f0; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(76, 201, 240, 0.25);">
+          {{ totalVendas }} vendas encontradas
+        </span>
+      </div>
+    </div>
+
+    <div style="
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 0 16px 16px;
+    ">
+      <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 16px; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.06);">
+        <div style="font-size: 0.75rem; color: #4cc9f0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Produtos</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff;">{{ totalProdutos }}</div>
+        <div style="font-size: 0.7rem; color: #8b8ba8; margin-top: 4px; font-weight: 500;">Cadastrados</div>
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 16px; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.06);">
+        <div style="font-size: 0.75rem; color: #7209b7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Fornecedores</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff;">{{ totalFornecedores }}</div>
+        <div style="font-size: 0.7rem; color: #8b8ba8; margin-top: 4px; font-weight: 500;">Parceiros</div>
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 16px; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.06);">
+        <div style="font-size: 0.75rem; color: #f72585; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Vendas</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff;">{{ totalVendas }}</div>
+        <div style="font-size: 0.7rem; color: #8b8ba8; margin-top: 4px; font-weight: 500;">Realizadas</div>
+      </div>
+
+      <div style="background: rgba(16, 185, 129, 0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 16px; padding: 16px; border: 1px solid rgba(16, 185, 129, 0.2);">
+        <div style="font-size: 0.75rem; color: #10b981; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Lucro Estimado</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);">{{ moeda(receitaTotal * 0.3) }}</div>
+        <div style="font-size: 0.7rem; color: rgba(16, 185, 129, 0.6); margin-top: 4px; font-weight: 600;">Margem ~30%</div>
+      </div>
+    </div>
+
+    <div *ngIf="topProdutos && topProdutos.length > 0" style="margin-top: 12px;">
+      <p style="padding: 0 16px; color: #ffffff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">
+        Top Produtos (Mês)
+      </p>
+
+      <div *ngFor="let p of topProdutos" style="
+        display: flex; 
+        align-items: center; 
+        padding: 12px 16px; 
+        background: rgba(255, 255, 255, 0.02); 
+        margin: 0 16px 8px; 
+        border-radius: 14px; 
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      ">
+        
+        <div style="
+          width: 44px; 
+          height: 44px; 
+          border-radius: 10px; 
+          background: rgba(255, 255, 255, 0.04); 
+          border: 1px solid rgba(255, 255, 255, 0.08); 
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          overflow: hidden; 
+          flex-shrink: 0;
+        ">
+          <img *ngIf="p.imageBase64" 
+               [src]="p.imageBase64" 
+               style="width: 100%; height: 100%; object-fit: cover;" />
+          
+          <svg *ngIf="!p.imageBase64" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 20px; height: 20px; color: #8b8ba8;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+          </svg>
+        </div>
+        
+        <div style="flex: 1; margin-left: 14px; min-width: 0;">
+          <div style="font-size: 0.92rem; font-weight: 600; color: #ffffff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            {{ p.title }}
+          </div>
+          <div style="font-size: 0.75rem; color: #8b8ba8; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            Fornecedor: {{ p.category }}
+          </div>
+        </div>
+        
+        <div style="
+          font-size: 0.95rem; 
+          font-weight: 700; 
+          color: #f72585; 
+          background: rgba(247, 37, 133, 0.1); 
+          padding: 6px 10px; 
+          border-radius: 8px; 
+          border: 1px solid rgba(247, 37, 133, 0.15);
+          text-shadow: 0 0 6px rgba(247, 37, 133, 0.2);
+          flex-shrink: 0;
+        ">
+          {{ moeda(p.sale_price) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 32px;"></div>
+</ion-content>

@@ -1,0 +1,130 @@
+/* Barra de Abas (Padrão Vanaheim Dark) */
+.fluxa-tab-bar {
+  --background: rgba(13, 12, 29, 0.95) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
+  height: 72px;
+  position: relative;
+
+  /* REGRA CRÍTICA 1: Permite que elementos transbordem para fora da barra */
+  contain: none !important;
+  overflow: visible !important;
+  
+  padding-bottom: max(env(safe-area-inset-bottom), 10px);
+}
+
+/* Configuração dos botões padrões */
+.tab-btn {
+  --color: #8b8ba8 !important;
+  --color-selected: #4cc9f0 !important;
+  font-weight: 600;
+  
+  /* REGRA CRÍTICA 2: Libera o container interno do botão do Ionic */
+  contain: none !important;
+  overflow: visible !important;
+
+  &::part(native) {
+    overflow: visible !important;
+    contain: none !important;
+  }
+
+  .tab-icon-wrap {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  ion-label {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .icon-active { display: none; }
+  .icon-inactive { display: inline-block; }
+
+  &.tab-selected {
+    .icon-active {
+      display: inline-block;
+      color: #4cc9f0;
+      filter: drop-shadow(0 0 8px rgba(76, 201, 240, 0.6));
+    }
+    .icon-inactive { display: none; }
+    
+    ion-label {
+      color: #4cc9f0;
+      text-shadow: 0 0 8px rgba(76, 201, 240, 0.3);
+    }
+  }
+}
+
+/* O Botão Central do PDV sem cortes */
+.tab-pdv {
+  contain: none !important;
+  overflow: visible !important;
+  position: relative;
+
+  &::part(native) {
+    overflow: visible !important;
+    contain: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinha o conteúdo à base */
+  }
+
+  .pdv-fab {
+    background: linear-gradient(135deg, #f72585 0%, #7209b7 100%);
+    color: #ffffff;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 18px rgba(247, 37, 133, 0.5);
+    
+    /* Move o FAB para cima usando posição absoluta controlada para evitar bugs no WebKit/iOS */
+    position: absolute;
+    top: -18px; 
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.15s ease-in-out;
+    z-index: 10;
+
+    .hero-icon-fab {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .label-pdv {
+    margin-top: 0 !important;
+    margin-bottom: 4px; /* Fixa o texto na base do tab-bar */
+    color: #8b8ba8;
+    font-weight: 700;
+    font-size: 0.7rem !important;
+  }
+
+  &.tab-selected {
+    .pdv-fab {
+      top: -20px; /* Sobe de leve no foco */
+      box-shadow: 0 0 25px rgba(247, 37, 133, 0.75), 0 4px 12px rgba(114, 9, 183, 0.5);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .label-pdv {
+      color: #f72585 !important;
+      text-shadow: 0 0 8px rgba(247, 37, 133, 0.4);
+    }
+  }
+}

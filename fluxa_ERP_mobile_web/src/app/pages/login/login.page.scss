@@ -1,0 +1,239 @@
+.login-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  padding: 24px 20px;
+}
+
+/* Identidade da Logo no estilo Vanaheim */
+.logo-area {
+  text-align: center;
+  margin-bottom: 32px;
+
+  .logo-text {
+    margin: 0;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+
+    span {
+      color: #f72585; /* Rosa Neon Principal */
+      text-shadow: 0 0 12px rgba(247, 37, 133, 0.5);
+    }
+  }
+
+  .logo-sub {
+    margin: 8px 0 0;
+    font-size: 0.88rem;
+    color: #8b8ba8; /* Text Secondary Muted */
+    font-weight: 500;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
+  }
+}
+
+/* Card Translúcido (Glassmorphism) */
+.login-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 28px 20px;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+
+  .card-header {
+    margin-bottom: 24px;
+    
+    .card-title {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .card-subtitle {
+      margin: 6px 0 0;
+      font-size: 0.85rem;
+      color: #8b8ba8;
+    }
+  }
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.custom-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #8b8ba8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+/* Inputs em modo escuro integrado */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 48px;
+  transition: all 0.2s ease-in-out;
+
+  .input-icon {
+    color: #8b8ba8;
+    font-size: 1.2rem;
+    margin-right: 10px;
+  }
+
+  .custom-input {
+    --padding-start: 0;
+    --color: #ffffff;
+    --placeholder-color: rgba(139, 139, 168, 0.5);
+    font-size: 0.95rem;
+  }
+
+  /* Foco com brilho Azul Neon */
+  &.focused {
+    border-color: #4cc9f0;
+    box-shadow: 0 0 14px rgba(76, 201, 240, 0.25);
+    background: rgba(0, 0, 0, 0.3);
+    
+    .input-icon {
+      color: #4cc9f0;
+    }
+  }
+}
+
+/* Status de Validação */
+.input-check {
+  font-size: 1.2rem;
+  margin-left: 8px;
+  
+  &.valid { 
+    color: #10b981; 
+    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+  }
+  &.invalid { 
+    color: #f72585; 
+    filter: drop-shadow(0 0 4px rgba(247, 37, 133, 0.4));
+  }
+}
+
+.field-hint {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  color: #f72585;
+  font-weight: 600;
+}
+
+/* Caixa de erro combinando com a identidade Cyberpunk */
+.error-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(247, 37, 133, 0.08);
+  border: 1px solid rgba(247, 37, 133, 0.25);
+  color: #f72585;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-shadow: 0 0 6px rgba(247, 37, 133, 0.2);
+
+  ion-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+}
+
+/* Adicione isso ao seu login.page.scss */
+.input-wrapper {
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Quando o input estiver focado, aplique um efeito de "pulso" no ícone */
+  &.focused .input-icon {
+    color: var(--neon-blue, #4cc9f0);
+    transform: scale(1.08);
+    transition: transform 0.2s ease;
+  }
+}
+
+/* Botão de Entrada em Degradê Rosa/Roxo com sombra forte */
+.btn-entrar {
+  margin: 8px 0 0;
+  --background: linear-gradient(135deg, #f72585 0%, #7209b7 100%) !important;
+  --color: #ffffff;
+  --border-radius: 10px;
+  --box-shadow: 0 6px 20px rgba(247, 37, 133, 0.4);
+  font-weight: 700;
+  font-size: 0.98rem;
+  height: 48px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &:active {
+    opacity: 0.9;
+  }
+
+  &[disabled] {
+    --background: rgba(255, 255, 255, 0.05) !important;
+    --color: rgba(255, 255, 255, 0.2);
+    --box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Link Secundário Esqueceu a Senha em Azul Neon */
+.card-links {
+  text-align: center;
+  margin-top: 20px;
+
+  .link-secundario {
+    background: transparent;
+    color: #4cc9f0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    text-shadow: 0 0 8px rgba(76, 201, 240, 0.2);
+    
+    &:active {
+      opacity: 0.7;
+    }
+  }
+}
+
+.btn-toggle-senha {
+  --color: #8b8ba8;
+  margin: 0;
+  height: 100%;
+  
+  &[disabled] {
+    opacity: 0.3;
+  }
+}
+
+.versao {
+  text-align: center;
+  color: rgba(139, 139, 168, 0.4);
+  font-size: 0.75rem;
+  margin-top: 32px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

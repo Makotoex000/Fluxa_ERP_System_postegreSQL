@@ -1,0 +1,93 @@
+ion-content {
+  --background: linear-gradient(135deg, #0F0E1E 0%, #1A1832 50%, #0B0A1A 100%);
+  --ion-safe-area-top: 0;
+  --ion-safe-area-bottom: 0;
+}
+
+ion-refresher-content {
+  --spinner-color: #818CF8;
+}
+
+// Estilos globais
+:host {
+  --ion-background-color: transparent;
+}
+
+p {
+  margin: 0;
+}
+
+// Toolbar Premium
+.toolbar-premium {
+  --background: rgba(19, 17, 42, 0.8) !important;
+  --border-color: rgba(129, 140, 248, 0.2) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(129, 140, 248, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 8px 16px;
+}
+
+// Botão Logout
+.btn-logout {
+  ion-icon {
+    font-size: 20px !important;
+    margin-right: 6px !important;
+  }
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+// Animações
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+// Cards
+ion-card {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.08) 100%) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(129, 140, 248, 0.2) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: slideInUp 0.5s ease-out;
+
+  ion-card-content {
+    padding: 20px !important;
+  }
+}
+
+// Skeleton loaders
+ion-skeleton-text {
+  --background: linear-gradient(90deg, rgba(129, 140, 248, 0.1) 0%, rgba(129, 140, 248, 0.2) 50%, rgba(129, 140, 248, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+// Badges
+ion-badge {
+  background: linear-gradient(135deg, #818CF8, #7C3AED) !important;
+  padding: 6px 12px !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
+}
+

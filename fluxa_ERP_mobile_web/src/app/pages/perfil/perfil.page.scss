@@ -1,0 +1,201 @@
+/* Estrutura do Topo do Perfil Cyber */
+.perfil-hero-cyber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.01);
+  padding: 28px 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+
+  .avatar-cyber {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(114, 9, 183, 0.15);
+    border: 2px solid rgba(114, 9, 183, 0.4);
+    color: #4cc9f0; /* Azul Neon */
+    font-weight: 800;
+    font-size: 1.45rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+    box-shadow: 0 0 20px rgba(114, 9, 183, 0.2);
+  }
+
+  .user-name-cyber {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+  }
+
+  .user-email-cyber {
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+    color: #8b8ba8;
+  }
+
+  /* Badge de Administrador */
+  .user-badge-cyber {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #8b8ba8;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-top: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    ion-icon {
+      font-size: 0.95rem;
+      color: #4cc9f0;
+      filter: drop-shadow(0 0 4px rgba(76, 201, 240, 0.4));
+    }
+  }
+}
+
+/* Linha de Status / KPIs rápidos */
+.stats-row-cyber {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+  .stat-item-cyber {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+    .stat-value-cyber {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      
+      /* Brilho Neon Green para o status ativo */
+      &.status-ativo-cyber {
+        color: #10b981;
+        text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+      }
+    }
+
+    .stat-label-cyber {
+      font-size: 0.72rem;
+      color: #8b8ba8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-top: 3px;
+    }
+  }
+
+  .stat-divider-cyber {
+    width: 1px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Títulos de Seção Muted */
+.section-label-cyber {
+  padding: 22px 16px 10px;
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Listas em Glassmorphism */
+.menu-section-cyber {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0 16px;
+
+  .menu-item-cyber {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item-text-cyber {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      .menu-item-label-cyber {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .menu-item-value-cyber {
+        font-size: 0.78rem;
+        color: #8b8ba8;
+        margin-top: 3px;
+        font-weight: 500;
+      }
+    }
+
+    /* Ícone verde brilhante dos módulos validados */
+    .check-icon-cyber {
+      color: #10b981;
+      font-size: 1.25rem;
+      filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
+    }
+  }
+}
+
+/* Botão Sair da Conta Estilo Caixa Neon de Alerta Rosa */
+.btn-sair-cyber {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(247, 37, 133, 0.06);
+  border: 1px solid rgba(247, 37, 133, 0.2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(247, 37, 133, 0.05);
+  transition: all 0.15s ease-in-out;
+
+  &:active {
+    background: rgba(247, 37, 133, 0.15);
+    transform: scale(0.99);
+  }
+
+  .menu-item-text-cyber {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.footer-text-cyber {
+  text-align: center;
+  color: rgba(139, 139, 168, 0.3);
+  font-size: 0.72rem;
+  margin-top: 36px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

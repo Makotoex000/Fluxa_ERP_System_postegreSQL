@@ -1,28 +1,17 @@
-// Em src/config.ts
-import { config as MSSQLConfig } from 'mssql'; 
 
-export const JWT_SECRET = 'SuaChaveSecretaMuitoSeguraAqui123!@#$'; 
-export const SERVER_PORT = 3000;
+import { DataSource } from 'typeorm';
 
-const DB_USER = 'fluxa_app_user';     
-const DB_PASSWORD = 'senhasegurapracaralho'; 
-
-export const sqlConfig: MSSQLConfig = {
-
-  server: 'KUROI', 
-  database: 'FluxaDB',        
-  port: 1433,                 
-
-  user: DB_USER,
-  password: DB_PASSWORD,
-
-  options: {
-    trustServerCertificate: true, 
-  },
-
-  pool: { 
-    max: 10, 
-    min: 0, 
-    idleTimeoutMillis: 30000 
-  }
-};
+export const AppDataSource = new DataSource({
+  type: 'postgres',                          
+  host: process.env.DB_HOST || 'localhost',
+  port: Number(process.env.DB_PORT) || 5432, 
+  username: process.env.DB_USER || 'fluxa_app_user',
+  password: process.env.DB_PASS || 'senhasegurapracaralho',
+  database: process.env.DB_NAME || 'FluxaDB',
+  ssl: process.env.DB_SSL === 'true'
+    ? { rejectUnauthorized: false }
+    : false,
+  entities: [...],  
+  migrations: [...],
+  synchronize: false,
+});

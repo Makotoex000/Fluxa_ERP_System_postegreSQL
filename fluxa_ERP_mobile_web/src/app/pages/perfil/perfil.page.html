@@ -1,0 +1,101 @@
+<ion-header class="ion-no-border fluxa-header-cyber">
+  <ion-toolbar style="--background: #0d0c1d; --border-width: 0; padding: 4px 8px;">
+    <ion-title style="font-weight: 800; color: #ffffff; font-size: 1.25rem; letter-spacing: -0.5px; text-transform: uppercase;">
+      Minha Conta
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);">
+
+  <div class="perfil-hero-cyber">
+    <div class="avatar-cyber">{{ iniciais }}</div>
+
+    <h2 class="user-name-cyber">{{ nomeUsuario }}</h2>
+    <p class="user-email-cyber">{{ email }}</p>
+
+    <div class="user-badge-cyber">
+      <ion-icon name="shield-checkmark"></ion-icon>
+      Administrador
+    </div>
+
+    <div class="stats-row-cyber">
+      <div class="stat-item-cyber">
+        <span class="stat-value-cyber">{{ totalProdutos }}</span>
+        <span class="stat-label-cyber">Produtos</span>
+      </div>
+      <div class="stat-divider-cyber"></div>
+      <div class="stat-item-cyber">
+        <span class="stat-value-cyber status-ativo-cyber">Ativo</span>
+        <span class="stat-label-cyber">Status</span>
+      </div>
+      <div class="stat-divider-cyber"></div>
+      <div class="stat-item-cyber">
+        <span class="stat-value-cyber">ERP</span>
+        <span class="stat-label-cyber">Plano</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label-cyber">Sobre o Sistema</p>
+
+  <div class="menu-section-cyber">
+    <div class="menu-item-cyber" *ngFor="let info of infoApp">
+      <div class="menu-item-text-cyber">
+        <span class="menu-item-label-cyber">{{ info.label }}</span>
+        <span class="menu-item-value-cyber">{{ info.value }}</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label-cyber">Módulos Contratados</p>
+
+  <div class="menu-section-cyber">
+    <div class="menu-item-cyber">
+      <div class="menu-item-text-cyber">
+        <span class="menu-item-label-cyber">Gestão de Estoque</span>
+        <span class="menu-item-value-cyber">Produtos e controle de Kardex</span>
+      </div>
+      <ion-icon name="checkmark-circle" class="check-icon-cyber"></ion-icon>
+    </div>
+
+    <div class="menu-item-cyber">
+      <div class="menu-item-text-cyber">
+        <span class="menu-item-label-cyber">Ponto de Venda (PDV)</span>
+        <span class="menu-item-value-cyber">Vendas com baixa automática</span>
+      </div>
+      <ion-icon name="checkmark-circle" class="check-icon-cyber"></ion-icon>
+    </div>
+
+    <div class="menu-item-cyber">
+      <div class="menu-item-text-cyber">
+        <span class="menu-item-label-cyber">Fornecedores</span>
+        <span class="menu-item-value-cyber">Gestão de fornecedores parceiros</span>
+      </div>
+      <ion-icon name="checkmark-circle" class="check-icon-cyber"></ion-icon>
+    </div>
+
+    <div class="menu-item-cyber">
+      <div class="menu-item-text-cyber">
+        <span class="menu-item-label-cyber">Relatórios e Dashboard</span>
+        <span class="menu-item-value-cyber">KPIs e análise financeira em tempo real</span>
+      </div>
+      <ion-icon name="checkmark-circle" class="check-icon-cyber"></ion-icon>
+    </div>
+  </div>
+
+  <div style="padding: 0 16px; margin-top: 24px;">
+    <div class="btn-sair-cyber" (click)="confirmarSaida()">
+      <div class="menu-item-text-cyber">
+        <span class="menu-item-label-cyber" style="color: #f72585;">Sair da conta</span>
+        <span class="menu-item-value-cyber" style="color: rgba(247, 37, 133, 0.6);">Encerrar sessão atual</span>
+      </div>
+      <ion-icon name="log-out-outline" style="color: #f72585; font-size: 20px; filter: drop-shadow(0 0 4px rgba(247, 37, 133, 0.3));"></ion-icon>
+    </div>
+  </div>
+
+  <p class="footer-text-cyber">Fluxa ERP Mobile · v1.0.0</p>
+
+  <div style="height: 32px;"></div>
+
+</ion-content>

@@ -1,0 +1,223 @@
+/* src/app/pages/produtos/produtos.page.scss */
+
+/* ==========================================================================
+   Layout & Containers Responsivos
+   ========================================================================== */
+.responsive-container {
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.main-content {
+  padding: 0 16px;
+}
+
+/* ==========================================================================
+   Header & Searchbar (Otimização Estrita)
+   ========================================================================== */
+.fluxa-header-cyber {
+  background: #0d0c1d !important;
+}
+
+.custom-searchbar-cyber {
+  --background: rgba(255, 255, 255, 0.04) !important;
+  --box-shadow: none !important;
+  --border-radius: 10px !important;
+  --color: #ffffff !important;
+  --placeholder-color: #8b8ba8 !important;
+  --icon-color: #4cc9f0 !important;
+  --clear-button-color: #8b8ba8 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 44px;
+
+  .searchbar-input {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: none !important;
+    padding-inline-start: 42px !important;
+    transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+
+    &:focus {
+      border-color: rgba(76, 201, 240, 0.4) !important;
+    }
+  }
+}
+
+.product-counter-cyber {
+  margin: 16px 0 10px;
+  color: #8b8ba8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cards-grid-cyber {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   Card de Produto (Aceleração Física via GPU)
+   ========================================================================== */
+.product-card-cyber {
+  /* Filtro de desfoque removido do loop para garantir rolagem em 60FPS no celular */
+  background: rgba(255, 255, 255, 0.02); 
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.2);
+  
+  /* Gerenciamento inteligente de renderização */
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+
+  &:active {
+    transform: scale(0.97); /* Feedback elástico suave de clique */
+  }
+
+  .card-top-cyber {
+    .product-name-cyber {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .product-supplier-cyber {
+      font-size: 0.8rem;
+      color: #8b8ba8;
+      font-weight: 500;
+    }
+  }
+
+  /* Grid de Blocos de Preço */
+  .card-values-grid-cyber {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .value-block-cyber {
+    border-radius: 10px;
+    padding: 10px 12px;
+    
+    .block-label-cyber {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .block-price-cyber {
+      display: block;
+      font-size: 1rem;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    /* Bloco Custo (Fundo Neutro OPACO) */
+    &.cost-block-cyber {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      .block-label-cyber { color: #8b8ba8; }
+      .block-price-cyber { color: #ffffff; }
+    }
+
+    /* Bloco Venda (Rosa Neon Brilhante Vanaheim) */
+    &.sale-block-cyber {
+      background: rgba(247, 37, 133, 0.06);
+      border: 1px solid rgba(247, 37, 133, 0.18);
+      .block-label-cyber { color: #f72585; }
+      .block-price-cyber { 
+        color: #f72585; 
+        text-shadow: 0 0 8px rgba(247, 37, 133, 0.3);
+      }
+    }
+  }
+
+  /* Rodapé do Card */
+  .card-footer-row-cyber {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+
+    .stock-badge-cyber {
+      font-size: 0.85rem;
+      color: #8b8ba8;
+      font-weight: 500;
+    }
+
+    .margin-badge-cyber {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      .margin-label-cyber {
+        font-size: 0.68rem;
+        color: #8b8ba8;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      .margin-value-cyber {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #4cc9f0;
+        background: rgba(114, 9, 183, 0.15);
+        border: 1px solid rgba(114, 9, 183, 0.25);
+        padding: 2px 8px;
+        border-radius: 20px;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   Skeletons e Estados Vazios
+   ========================================================================== */
+.skeleton-card-cyber {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  height: 147px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.empty-state-box-cyber {
+  text-align: center;
+  padding: 48px 24px;
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  margin-top: 16px;
+
+  .empty-icon-cyber {
+    width: 44px;
+    height: 44px;
+    color: #8b8ba8;
+    margin: 0 auto 12px;
+    filter: drop-shadow(0 0 6px rgba(139, 139, 168, 0.2));
+  }
+
+  h4 {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  p {
+    color: #8b8ba8;
+    font-size: 0.85rem;
+    margin: 6px 0 0;
+  }
+}

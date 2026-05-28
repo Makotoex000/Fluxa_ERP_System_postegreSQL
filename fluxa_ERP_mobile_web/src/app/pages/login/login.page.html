@@ -1,0 +1,101 @@
+<ion-content style="--background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);">
+  <div class="login-wrap">
+
+    <div class="logo-area">
+      <h1 class="logo-text">Fluxa<span>ERP</span></h1>
+      <p class="logo-sub">Gerencie seu estoque e visualize métricas financeiras.</p>
+    </div>
+
+    <div class="login-card">
+      <div class="card-header">
+        <h2 class="card-title">Bem-vindo de volta</h2>
+        <p class="card-subtitle">Acesse sua conta para continuar</p>
+      </div>
+
+      <div class="field-group">
+        <div class="field">
+          <label class="custom-label">E-mail</label>
+          <div class="input-container">
+            <div class="input-wrapper" [class.filled]="email.length > 0" [class.focused]="emailFocused">
+              <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+              <ion-input 
+                type="email" 
+                [(ngModel)]="email"
+                (ionChange)="validarEmail()"
+                (focus)="emailFocused = true"
+                (blur)="emailFocused = false"
+                placeholder="seu@email.com"
+                [disabled]="carregando"
+                class="custom-input">
+              </ion-input>
+              <ion-icon 
+                *ngIf="email.length > 0 && emailValido" 
+                name="checkmark-circle" 
+                class="input-check valid">
+              </ion-icon>
+              <ion-icon 
+                *ngIf="email.length > 0 && !emailValido" 
+                name="close-circle" 
+                class="input-check invalid">
+              </ion-icon>
+            </div>
+            <p class="field-hint" *ngIf="email.length > 0 && !emailValido">
+              E-mail inválido
+            </p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="custom-label">Senha</label>
+          <div class="input-container">
+            <div class="input-wrapper" [class.filled]="senha.length > 0" [class.focused]="senhaFocused">
+              <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+              <ion-input 
+                [type]="mostrarSenha ? 'text' : 'password'" 
+                [(ngModel)]="senha"
+                (focus)="senhaFocused = true"
+                (blur)="senhaFocused = false"
+                placeholder="••••••••"
+                [disabled]="carregando"
+                class="custom-input">
+              </ion-input>
+              <ion-button 
+                fill="clear" 
+                size="small"
+                (click)="mostrarSenha = !mostrarSenha"
+                [disabled]="!senha"
+                class="btn-toggle-senha">
+                <ion-icon 
+                  slot="icon-only"
+                  [name]="mostrarSenha ? 'eye-off-outline' : 'eye-outline'">
+                </ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-box" *ngIf="erro" [@slideIn]>
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <span>{{ erro }}</span>
+      </div>
+
+      <ion-button 
+        expand="block" 
+        (click)="entrar()"
+        [disabled]="!emailValido || !senha || carregando" 
+        class="btn-entrar">
+        <ion-spinner *ngIf="carregando" name="crescent" style="--color: #ffffff;"></ion-spinner>
+        <span *ngIf="!carregando">Entrar na conta</span>
+      </ion-button>
+
+      <div class="card-links">
+        <button class="link-secundario" (click)="esqueceuSenha()">
+          Esqueceu a senha?
+        </button>
+      </div>
+    </div>
+
+    <p class="versao">v1.0</p>
+  </div>
+</ion-content>

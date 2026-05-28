@@ -1,0 +1,97 @@
+ion-content {
+  --background: linear-gradient(135deg, #0F0E1E 0%, #1A1832 50%, #0B0A1A 100%);
+  --ion-safe-area-top: 0;
+  --ion-safe-area-bottom: 0;
+}
+
+ion-refresher-content {
+  --spinner-color: #818CF8;
+}
+
+// Toolbar
+ion-toolbar {
+  --background: rgba(19, 17, 42, 0.8) !important;
+  --border-color: rgba(129, 140, 248, 0.2) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(129, 140, 248, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+ion-title {
+  --color: white;
+}
+
+:host {
+  --ion-background-color: transparent;
+}
+
+p {
+  margin: 0;
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Item List
+ion-item {
+  --background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(124, 58, 237, 0.05) 100%);
+  --border-color: rgba(129, 140, 248, 0.15);
+  border-radius: 14px;
+  margin: 8px 12px;
+  animation: slideInUp 0.5s ease-out;
+
+  &:focus {
+    --background: linear-gradient(135deg, rgba(79, 70, 229, 0.15) 0%, rgba(124, 58, 237, 0.12) 100%);
+  }
+}
+
+ion-item-sliding {
+  --ion-item-background: transparent;
+}
+
+// Cards
+ion-card {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(124, 58, 237, 0.08) 100%) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(129, 140, 248, 0.2) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+// Buttons
+ion-button {
+  --background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  --color: white;
+  --border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+// Skeleton
+ion-skeleton-text {
+  --background: linear-gradient(90deg, rgba(129, 140, 248, 0.1) 0%, rgba(129, 140, 248, 0.2) 50%, rgba(129, 140, 248, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
