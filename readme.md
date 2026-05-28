@@ -1,4 +1,3 @@
-```markdown
 # Fluxa ERP - Mobile Application
 
 Este repositório contém o subsistema mobile do **Fluxa ERP**, desenvolvido utilizando o framework **Ionic** para fornecer uma experiência nativa e responsiva em dispositivos móveis (Android). O aplicativo integra-se ao ecossistema do Fluxa ERP, permitindo que gestores e colaboradores acessem dados estratégicos, relatórios e dashboards em tempo real diretamente de seus smartphones.
