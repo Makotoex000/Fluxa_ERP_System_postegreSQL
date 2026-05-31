@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+﻿import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Sale } from './Sale';       
 import { Product } from './Product'; 
 
@@ -35,3 +35,4 @@ export class SaleItem {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     costPerUnit!: number; 
 }
+

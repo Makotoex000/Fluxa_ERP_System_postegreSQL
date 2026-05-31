@@ -16,10 +16,10 @@ import { forkJoin } from 'rxjs';
 })
 export class DashboardPage implements OnInit {
 
-  totalProdutos  = 0;
-  totalVendas    = 0;
+  totalProdutos = 0;
+  totalVendas = 0;
   totalFornecedores = 0;
-  receitaTotal   = 0;
+  receitaTotal = 0;
   topProdutos: any[] = [];
   carregando = true;
 
@@ -28,7 +28,7 @@ export class DashboardPage implements OnInit {
     private saleService: SaleService,
     private supplierService: SupplierService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() { this.carregarDados(); }
 
@@ -37,19 +37,19 @@ export class DashboardPage implements OnInit {
 
     // Busca tudo ao mesmo tempo (mais rápido)
     forkJoin({
-      produtos:    this.userService.listProducts(),
-      vendas:      this.saleService.listSales(),
+      produtos: this.userService.listProducts(),
+      vendas: this.saleService.listSales(),
       fornecedores: this.supplierService.listSuppliers(),
     }).subscribe({
       next: ({ produtos, vendas, fornecedores }) => {
-        this.totalProdutos     = produtos.length;
-        this.totalVendas       = vendas.length;
+        this.totalProdutos = produtos.length;
+        this.totalVendas = vendas.length;
         this.totalFornecedores = fornecedores.length;
-        this.topProdutos       = produtos.slice(0, 3);
+        this.topProdutos = produtos.slice(0, 3);
 
         // Calcula receita somando todas as vendas
         this.receitaTotal = vendas.reduce(
-          (acc: number, v: any) => acc + (v.totalAmount ?? 0), 0
+          (acc: number, v: any) => acc + Number(v.totalAmount ?? 0), 0
         );
 
         this.carregando = false;

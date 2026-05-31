@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
+﻿import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 
 import { SaleItem } from './SaleItem'; 
 
@@ -12,10 +12,11 @@ export class Sale {
     totalAmount!: number;
 
 
-    @CreateDateColumn({ type: 'datetime2' })
+    @CreateDateColumn({ type: 'timestamp' })
     createdAt!: Date;
 
     @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true /*, eager: true */ })
     items!: SaleItem[];
 
 }
+

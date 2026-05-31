@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { JWTPayload } from '../types';
 
-import { JWT_SECRET } from '../config';
+const JWT_SECRET = process.env.JWT_SECRET || 'fluxa_erp_secret_2026';
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction): void => {
 

@@ -1,4 +1,4 @@
-
+﻿
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
 import { Product } from './Product'; 
 
@@ -28,7 +28,7 @@ export class StockMovement {
     product!: Product;
 
     @Column({
-        type: 'nvarchar',
+        type: 'varchar',
         length: 50,
         enum: MovementType 
     })
@@ -37,6 +37,7 @@ export class StockMovement {
     @Column({ type: 'int' })
     quantity!: number; 
 
-    @CreateDateColumn({ type: 'datetime2' })
+    @CreateDateColumn({ type: 'timestamp' })
     createdAt!: Date;
 }
+
