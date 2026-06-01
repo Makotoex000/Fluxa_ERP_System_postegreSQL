@@ -8,6 +8,9 @@ frontend:
     build:
       commands:
         - npm run build -- --configuration production
+        - echo "--- conteudo do dist ---"
+        - ls dist/
+        - ls dist/frontend-gestao-marketplace/ || echo "pasta nao encontrada"
   artifacts:
     baseDirectory: frontend-startup/dist/frontend-gestao-marketplace/browser
     files:
