@@ -1,0 +1,17 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd frontend-startup
+        - npm install
+    build:
+      commands:
+        - npm run build -- --configuration production
+  artifacts:
+    baseDirectory: frontend-startup/dist/frontend-gestao-marketplace/browser
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - frontend-startup/node_modules/**/*
