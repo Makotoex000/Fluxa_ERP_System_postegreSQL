@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 // Importa suas interfaces de produto (atualizadas)
 import { IProductResponse } from '../interfaces/product-response';
@@ -27,7 +28,7 @@ export class ProductService {
 
   private readonly _httpClient = inject(HttpClient);
 
-  private readonly _apiUrl = 'http://localhost:3000/api/products';
+  private readonly _apiUrl = `${environment.apiUrl}/api/products`;
 
 
   listProducts(): Observable<IProductResponse[]> {

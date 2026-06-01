@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 import { ISupplierResponse } from '../interfaces/supplier-response';
 import { ISuppliersResponse } from '../interfaces/suppliers-response';
@@ -11,7 +12,7 @@ import { ISupplierRequest } from '../interfaces/supplier-request';
 export class SupplierService {
   private readonly _httpClient = inject(HttpClient);
 
-  private readonly _apiUrl = 'http://localhost:3000/api/suppliers';
+  private readonly _apiUrl = `${environment.apiUrl}/api/suppliers`;
 
   listSuppliers(): Observable<ISupplierResponse[]> {
     return this._httpClient.get<ISuppliersResponse>(this._apiUrl).pipe(

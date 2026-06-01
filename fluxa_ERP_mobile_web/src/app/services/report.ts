@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ReportService {
 
   private readonly _httpClient = inject(HttpClient);
   // O Interceptor cuida do token
-  private readonly _apiUrl = 'http://localhost:3000/api/reports';
+  private readonly _apiUrl = `${environment.apiUrl}/api/reports`;
 
   /**
    * Solicita o relatório do backend.
