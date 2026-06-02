@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://54.208.45.68:3000'
+  apiUrl: 'https://fluxa-erp.duckdns.org'
 };
 
 /*
