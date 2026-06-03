@@ -44,11 +44,21 @@ ion-toolbar {
 ion-tab-bar {
   --background: #0D0C20;
   border-top: 1px solid rgba(255,255,255,0.06);
-  height: 62px;
-  padding-bottom: 4px;
+  height: 68px;
+  padding-bottom: 10px;
 }
 
 ion-tab-button { font-size: 10px; }
+
+.page-title-bar {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  padding-left: 4px;
+  line-height: 1.2;
+}
 
 ion-card {
   border-radius: 16px;

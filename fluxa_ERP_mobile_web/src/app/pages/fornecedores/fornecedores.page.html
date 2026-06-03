@@ -1,92 +1,43 @@
-<ion-header class="ion-no-border fluxa-header-cyber">
-  <ion-toolbar class="header-toolbar-cyber">
-    <ion-title class="header-title-cyber">Fornecedores</ion-title>
-  </ion-toolbar>
+<div class="app-header">
+  <div class="page-title-bar">Fornecedores</div>
+</div>
+<div class="search-bar-wrap">
+  <input type="text" class="page-search" [(ngModel)]="busca" (input)="filtrar()" placeholder="Buscar por nome..." />
+</div>
 
-  <ion-toolbar class="search-toolbar-cyber">
-    <div class="responsive-container">
-      <ion-searchbar 
-        [(ngModel)]="busca" 
-        (ionInput)="filtrar()"
-        placeholder="Buscar por nome..."
-        debounce="300"
-        show-clear-button="always"
-        class="custom-searchbar-cyber">
-      </ion-searchbar>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content style="--background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);">
-
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
+<ion-content class="page-content">
   <div class="responsive-container main-content-cyber">
-    
-    <p *ngIf="!carregando" class="counter-text-cyber">
-      {{ filtrados.length }} fornecedor(es) encontrado(s)
-    </p>
+
+    <p *ngIf="!carregando" class="counter-text-cyber">{{ filtrados.length }} fornecedor(es) encontrado(s)</p>
 
     <div *ngIf="carregando" class="cards-grid-cyber">
-      <div *ngFor="let i of" class="skeleton-card-cyber"></div>
+      <div *ngFor="let i of [1,2,3,4]" class="skeleton-card-cyber"></div>
     </div>
 
     <div *ngIf="!carregando" class="cards-grid-cyber">
       <div *ngFor="let f of filtrados" class="supplier-card-cyber">
 
-        <div class="supplier-avatar-cyber" style="
-          width: 46px;
-          height: 46px;
-          border-radius: 12px;
-          background: rgba(114, 9, 183, 0.15);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #4cc9f0;
-          font-weight: 800;
-          font-size: 0.95rem;
-          flex-shrink: 0;
-          border: 1px solid rgba(114, 9, 183, 0.3);
-          text-shadow: 0 0 8px rgba(76, 201, 240, 0.4);
-          overflow: hidden;
-        ">
-          <img *ngIf="f.imageBase64" 
-               [src]="f.imageBase64.includes('base64,') ? f.imageBase64 : 'data:image/jpeg;base64,' + f.imageBase64" 
-               style="width: 100%; height: 100%; object-fit: cover;" />
-
+        <div style="width:46px;height:46px;border-radius:12px;background:rgba(114,9,183,0.15);display:flex;align-items:center;justify-content:center;color:#4cc9f0;font-weight:800;font-size:0.95rem;flex-shrink:0;border:1px solid rgba(114,9,183,0.3);overflow:hidden;">
+          <img *ngIf="f.imageBase64" [src]="f.imageBase64.includes('base64,') ? f.imageBase64 : 'data:image/jpeg;base64,' + f.imageBase64" style="width:100%;height:100%;object-fit:cover;" />
           <span *ngIf="!f.imageBase64">{{ iniciais(f.companyName) }}</span>
         </div>
 
         <div class="supplier-info-cyber">
-          <div class="supplier-name-cyber">
-            {{ f.companyName }}
-          </div>
-          
-          <div *ngIf="f.contactName" class="supplier-meta-cyber">
-            <span>Contato:</span> {{ f.contactName }}
-          </div>
-          
-          <div *ngIf="f.phone" class="supplier-meta-cyber">
-            <span>Tel:</span> <span class="phone-highlight-cyber">{{ f.phone }}</span>
-          </div>
+          <div class="supplier-name-cyber">{{ f.companyName }}</div>
+          <div *ngIf="f.contactName" class="supplier-meta-cyber"><span>Contato:</span> {{ f.contactName }}</div>
+          <div *ngIf="f.phone" class="supplier-meta-cyber"><span>Tel:</span> <span class="phone-highlight-cyber">{{ f.phone }}</span></div>
         </div>
 
-        <ion-icon name="chevron-forward-outline" class="arrow-icon-cyber"></ion-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:18px;height:18px;color:#8b8ba8;flex-shrink:0;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
 
       </div>
     </div>
 
     <div *ngIf="!carregando && filtrados.length === 0" class="empty-state-cyber">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="empty-icon-cyber">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-10.5h16.5M2.25 22.5h19.5M4.5 10.5v10.5m15-10.5v10.5M2.25 10.5h19.5M9 10.5v10.5m6-10.5v10.5M6 10.5h12M6 6.75h12M6 3h12" />
-      </svg>
       <h4>Nenhum fornecedor encontrado</h4>
-      <p>Verifique os termos digitados ou adicione novos parceiros no painel.</p>
     </div>
 
   </div>
-
-  <div style="height: 32px;"></div>
 </ion-content>

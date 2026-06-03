@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'https://fluxa-erp.duckdns.org'
 };
+export const appVersion = '1.114';
 
 /*
  * For easier debugging in development mode, you can import the following file

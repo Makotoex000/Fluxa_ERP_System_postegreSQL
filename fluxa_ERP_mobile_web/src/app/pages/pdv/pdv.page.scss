@@ -1,3 +1,124 @@
+:host {
+  position: fixed;
+  top: calc(48px + env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto !important;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 48px;
+  background: #0d0c1d;
+  flex-shrink: 0;
+}
+
+.cart-badge-wrap {
+  position: relative;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  background: #f72585;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 2px solid #0d0c1d;
+  box-shadow: 0 0 8px rgba(247, 37, 133, 0.6);
+}
+
+.search-bar-wrap {
+  background: #0d0c1d;
+  padding: 0 16px 12px;
+  flex-shrink: 0;
+}
+
+.pdv-search {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  outline: none;
+  height: 44px;
+
+  &::placeholder { color: #8b8ba8; }
+  &:focus { border-color: rgba(76, 201, 240, 0.4); }
+}
+
+.pdv-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);
+  padding-bottom: 84px;
+}
+
+.pdv-icon-btn {
+  background: transparent;
+  border: none;
+  color: #4cc9f0;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.pdv-btn-add {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.chip-close-btn {
+  background: transparent;
+  border: none;
+  color: #8b8ba8;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+
+  &:active { color: #f72585; }
+}
+
 /* Container do Carrinho Flutuante de Vidro */
 .custom-cart-footer {
   position: absolute;

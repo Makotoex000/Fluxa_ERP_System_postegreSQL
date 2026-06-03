@@ -1,4 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   apiUrl: 'https://fluxa-erp.duckdns.org'
 };
+export const appVersion = '1.113';

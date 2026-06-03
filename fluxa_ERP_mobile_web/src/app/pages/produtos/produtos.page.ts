@@ -1,18 +1,18 @@
 // src/app/pages/produtos/produtos.page.ts
-import { Component } from '@angular/core';
-import { IonicModule, ViewWillEnter } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-produtos',
-  templateUrl: './produtos.page.html', 
+  templateUrl: './produtos.page.html',
   styleUrls: ['./produtos.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
-export class ProdutosPage implements ViewWillEnter {
+export class ProdutosPage implements OnInit {
 
 
   produtos: any[] = [];
@@ -27,9 +27,7 @@ export class ProdutosPage implements ViewWillEnter {
    * Garante a atualização instantânea das quantidades físicas em estoque
    * sempre que você sair do PDV e abrir a listagem de mercadorias.
    */
-  ionViewWillEnter() {
-    this.carregar();
-  }
+  ngOnInit() { this.carregar(); }
 
   carregar(event?: any) {
     if (!event) this.carregando = true;

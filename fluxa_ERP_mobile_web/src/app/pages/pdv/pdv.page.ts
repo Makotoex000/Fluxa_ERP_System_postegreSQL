@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicModule, ToastController, AlertController } from '@ionic/angular';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserService } from '../../services/user';
 import { SaleService } from '../../services/sale';
 
@@ -14,12 +12,12 @@ interface CartItem {
 
 @Component({
   selector: 'app-pdv',
-  templateUrl: './pdv.page.html',   // ← aponta para pdv.page.html
+  templateUrl: './pdv.page.html',
   styleUrls: ['./pdv.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule],
 })
-export class PdvPage implements OnInit {  // ← classe PdvPage (não ProdutosPage)
+export class PdvPage implements OnInit {
 
   produtos: any[] = [];
   produtosFiltrados: any[] = [];
@@ -31,9 +29,7 @@ export class PdvPage implements OnInit {  // ← classe PdvPage (não ProdutosPa
   constructor(
     private userService: UserService,
     private saleService: SaleService,
-    private toastCtrl: ToastController,
-    private alertCtrl: AlertController,
-    private router: Router,
+    private zone: NgZone,
   ) {}
 
   ngOnInit() { this.carregarProdutos(); }
@@ -42,61 +38,69 @@ export class PdvPage implements OnInit {  // ← classe PdvPage (não ProdutosPa
     this.carregando = true;
     this.userService.listProducts().subscribe({
       next: (data) => {
-        this.produtos = (data ?? []).filter(
-          (p: any) => p.quantity > 0 && p.status === 'anunciado'
-        );
-        this.produtosFiltrados = [...this.produtos];
-        this.carregando = false;
+        this.zone.run(() => {
+          this.produtos = (data ?? []).filter(
+            (p: any) => p.quantity > 0 && p.status === 'anunciado'
+          );
+          this.produtosFiltrados = [...this.produtos];
+          this.carregando = false;
+        });
       },
-      error: () => { this.carregando = false; }
+      error: () => { this.zone.run(() => { this.carregando = false; }); }
     });
   }
 
   filtrar() {
     const termo = this.busca.toLowerCase().trim();
-    if (!termo) {
-      this.produtosFiltrados = [...this.produtos];
-      return;
-    }
-    this.produtosFiltrados = this.produtos.filter(p =>
-      p.title?.toLowerCase().includes(termo) ||
-      p.category?.toLowerCase().includes(termo)
-    );
+    this.produtosFiltrados = !termo
+      ? [...this.produtos]
+      : this.produtos.filter(p =>
+          p.title?.toLowerCase().includes(termo) ||
+          p.category?.toLowerCase().includes(termo)
+        );
   }
 
   // ── Carrinho ──────────────────────────────────────
 
   adicionarAoCarrinho(produto: any) {
-    const existente = this.carrinho.find(i => i.product.id === produto.id);
-    if (existente) {
-      if (existente.quantity < produto.quantity) {
-        existente.quantity++;
-        existente.subtotal = existente.quantity * produto.sale_price;
+    this.zone.run(() => {
+      const existente = this.carrinho.find(i => i.product.id === produto.id);
+      if (existente) {
+        if (existente.quantity < produto.quantity) {
+          existente.quantity++;
+          existente.subtotal = existente.quantity * Number(produto.sale_price);
+          this.carrinho = [...this.carrinho];
+        } else {
+          this.toast(`Estoque máximo: ${produto.quantity} un`, 'warning');
+        }
       } else {
-        this.mostrarToast(`Estoque máximo: ${produto.quantity} un`, 'warning');
+        this.carrinho = [...this.carrinho, {
+          product: produto,
+          quantity: 1,
+          subtotal: Number(produto.sale_price),
+        }];
       }
-    } else {
-      this.carrinho.push({
-        product: produto,
-        quantity: 1,
-        subtotal: produto.sale_price,
-      });
-    }
+    });
   }
 
   removerDoCarrinho(item: CartItem) {
-    const no = this.carrinho.find(i => i.product.id === item.product.id);
-    if (!no) return;
-    if (no.quantity > 1) {
-      no.quantity--;
-      no.subtotal = no.quantity * no.product.sale_price;
-    } else {
-      this.carrinho = this.carrinho.filter(i => i.product.id !== item.product.id);
-    }
+    this.zone.run(() => {
+      const no = this.carrinho.find(i => i.product.id === item.product.id);
+      if (!no) return;
+      if (no.quantity > 1) {
+        no.quantity--;
+        no.subtotal = no.quantity * Number(no.product.sale_price);
+        this.carrinho = [...this.carrinho];
+      } else {
+        this.carrinho = this.carrinho.filter(i => i.product.id !== item.product.id);
+      }
+    });
   }
 
   removerItemCompleto(item: CartItem) {
-    this.carrinho = this.carrinho.filter(i => i.product.id !== item.product.id);
+    this.zone.run(() => {
+      this.carrinho = this.carrinho.filter(i => i.product.id !== item.product.id);
+    });
   }
 
   quantidadeNoCarrinho(produto: any): number {
@@ -113,20 +117,15 @@ export class PdvPage implements OnInit {  // ← classe PdvPage (não ProdutosPa
 
   // ── Finalizar venda ───────────────────────────────
 
-  async confirmarVenda() {
+  confirmarVenda() {
     if (this.carrinho.length === 0) {
-      this.mostrarToast('Adicione produtos ao carrinho', 'warning');
+      this.toast('Adicione produtos ao carrinho', 'warning');
       return;
     }
-    const alert = await this.alertCtrl.create({
-      header: 'Confirmar Venda',
-      message: `Total: ${this.moeda(this.totalValor)} · ${this.totalItens} item(s)`,
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        { text: 'Finalizar', handler: () => this.finalizarVenda() },
-      ],
-    });
-    await alert.present();
+    const ok = window.confirm(
+      `Confirmar venda?\n\nTotal: ${this.moeda(this.totalValor)}\n${this.totalItens} item(s)`
+    );
+    if (ok) this.finalizarVenda();
   }
 
   finalizarVenda() {
@@ -138,15 +137,19 @@ export class PdvPage implements OnInit {  // ← classe PdvPage (não ProdutosPa
       })),
     };
     this.saleService.createSale(payload as any).subscribe({
-      next: async () => {
-        this.finalizando = false;
-        this.carrinho = [];
-        this.mostrarToast('✅ Venda realizada com sucesso!', 'success');
-        this.carregarProdutos();
+      next: () => {
+        this.zone.run(() => {
+          this.finalizando = false;
+          this.carrinho = [];
+          this.toast('Venda realizada com sucesso!', 'success');
+          this.carregarProdutos();
+        });
       },
-      error: async (err) => {
-        this.finalizando = false;
-        this.mostrarToast(`❌ ${err.message ?? 'Erro ao finalizar venda.'}`, 'danger');
+      error: (err) => {
+        this.zone.run(() => {
+          this.finalizando = false;
+          this.toast(err.message ?? 'Erro ao finalizar venda.', 'danger');
+        });
       },
     });
   }
@@ -154,14 +157,36 @@ export class PdvPage implements OnInit {  // ← classe PdvPage (não ProdutosPa
   // ── Helpers ───────────────────────────────────────
 
   moeda(valor: number): string {
-    if (valor === undefined || valor === null) return 'R$ 0,00';
+    if (valor == null) return 'R$ 0,00';
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
-  async mostrarToast(msg: string, color: string) {
-    const t = await this.toastCtrl.create({
-      message: msg, duration: 2500, color, position: 'top',
+  toast(msg: string, tipo: 'success' | 'warning' | 'danger') {
+    const colors: Record<string, string> = {
+      success: '#10b981',
+      warning: '#f59e0b',
+      danger:  '#f72585',
+    };
+    const el = document.createElement('div');
+    el.textContent = msg;
+    Object.assign(el.style, {
+      position:     'fixed',
+      top:          '24px',
+      left:         '50%',
+      transform:    'translateX(-50%)',
+      background:   colors[tipo] ?? '#333',
+      color:        '#fff',
+      padding:      '12px 20px',
+      borderRadius: '10px',
+      fontSize:     '0.9rem',
+      fontWeight:   '600',
+      zIndex:       '99999',
+      maxWidth:     '90vw',
+      textAlign:    'center',
+      boxShadow:    '0 4px 20px rgba(0,0,0,0.4)',
+      pointerEvents:'none',
     });
-    t.present();
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2500);
   }
 }

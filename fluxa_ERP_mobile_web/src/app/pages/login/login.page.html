@@ -1,93 +1,89 @@
-<ion-content style="--background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);">
+<ion-content class="login-content">
   <div class="login-wrap">
 
     <div class="logo-area">
+      <div class="logo-icon">
+        <svg class="raw-icon logo-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#ff9a44" d="M194.82 496a18.36 18.36 0 01-18.1-21.53v-.11L204.83 320H96a16 16 0 01-12.44-26.06L302.73 23a18.45 18.45 0 0132.8 9.06l-31.11 161.43H416a16 16 0 0113.62 24.3l-215.14 272.48A18.27 18.27 0 01194.82 496z"/>
+        </svg>
+      </div>
       <h1 class="logo-text">Fluxa<span>ERP</span></h1>
-      <p class="logo-sub">Gerencie seu estoque e visualize métricas financeiras.</p>
+      <p class="logo-sub">Seu ERP de gestão empresarial</p>
     </div>
 
     <div class="login-card">
       <div class="card-header">
-        <h2 class="card-title">Bem-vindo de volta</h2>
+        <h2 class="card-title">Bem-vindo! 👋</h2>
         <p class="card-subtitle">Acesse sua conta para continuar</p>
       </div>
 
       <div class="field-group">
+
         <div class="field">
-          <label class="custom-label">E-mail</label>
-          <div class="input-container">
-            <div class="input-wrapper" [class.filled]="email.length > 0" [class.focused]="emailFocused">
-              <ion-icon name="mail-outline" class="input-icon"></ion-icon>
-              <ion-input 
-                type="email" 
-                [(ngModel)]="email"
-                (ionChange)="validarEmail()"
-                (focus)="emailFocused = true"
-                (blur)="emailFocused = false"
-                placeholder="seu@email.com"
-                [disabled]="carregando"
-                class="custom-input">
-              </ion-input>
-              <ion-icon 
-                *ngIf="email.length > 0 && emailValido" 
-                name="checkmark-circle" 
-                class="input-check valid">
-              </ion-icon>
-              <ion-icon 
-                *ngIf="email.length > 0 && !emailValido" 
-                name="close-circle" 
-                class="input-check invalid">
-              </ion-icon>
-            </div>
-            <p class="field-hint" *ngIf="email.length > 0 && !emailValido">
-              E-mail inválido
-            </p>
-          </div>
+          <label class="custom-label">
+            <svg class="raw-icon email-icon" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M424 80H88a56.06 56.06 0 00-56 56v240a56.06 56.06 0 0056 56h336a56.06 56.06 0 0056-56V136a56.06 56.06 0 00-56-56zm-14.18 92.63l-144 112a16 16 0 01-19.64 0l-144-112a16 16 0 1119.64-25.26L256 251.73l134.18-104.36a16 16 0 0119.64 25.26z"/>
+            </svg>
+            E-MAIL
+          </label>
+          <input id="emailInput" #emailRef
+            type="email"
+            placeholder="seu@email.com"
+            [(ngModel)]="email"
+            (ngModelChange)="validarEmail()"
+            (focus)="emailFocused = true"
+            (blur)="emailFocused = false"
+            (click)="onEmailClick()"
+            [disabled]="carregando"
+            inputmode="email"
+            class="custom-input">
         </div>
 
         <div class="field">
-          <label class="custom-label">Senha</label>
-          <div class="input-container">
-            <div class="input-wrapper" [class.filled]="senha.length > 0" [class.focused]="senhaFocused">
-              <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
-              <ion-input 
-                [type]="mostrarSenha ? 'text' : 'password'" 
-                [(ngModel)]="senha"
-                (focus)="senhaFocused = true"
-                (blur)="senhaFocused = false"
-                placeholder="••••••••"
-                [disabled]="carregando"
-                class="custom-input">
-              </ion-input>
-              <ion-button 
-                fill="clear" 
-                size="small"
-                (click)="mostrarSenha = !mostrarSenha"
-                [disabled]="!senha"
-                class="btn-toggle-senha">
-                <ion-icon 
-                  slot="icon-only"
-                  [name]="mostrarSenha ? 'eye-off-outline' : 'eye-outline'">
-                </ion-icon>
-              </ion-button>
-            </div>
+          <label class="custom-label">
+            <svg class="raw-icon lock-icon" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M368 192h-16v-80a96 96 0 10-192 0v80h-16a64.07 64.07 0 00-64 64v176a64.07 64.07 0 0064 64h224a64.07 64.07 0 0064-64V256a64.07 64.07 0 00-64-64zm-48 0H192v-80a64 64 0 11128 0z"/>
+            </svg>
+            SENHA
+          </label>
+          <div class="input-with-toggle">
+            <input id="senhaInput" #senhaRef
+              [type]="mostrarSenha ? 'text' : 'password'"
+              placeholder="••••••••"
+              [(ngModel)]="senha"
+              (focus)="senhaFocused = true"
+              (blur)="senhaFocused = false"
+              (click)="onSenhaClick()"
+              [disabled]="carregando"
+              inputmode="text"
+              class="custom-input">
+            <button type="button" class="toggle-senha" (click)="mostrarSenha = !mostrarSenha" [disabled]="carregando">
+              
+              <svg *ngIf="!mostrarSenha" class="raw-icon eye-icon" viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <path d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z"/>
+                <circle cx="256" cy="256" r="80"/>
+              </svg>
+              <svg *ngIf="mostrarSenha" class="raw-icon eye-icon" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M432 448a15.92 15.92 0 01-11.31-4.69l-352-352a16 16 0 0122.62-22.62l352 352A16 16 0 01432 448z"/><path d="M255.66 112c-41.25 0-82.52 11.39-119.8 32.86a16 16 0 00-5.83 22l17.75 30.6a16 16 0 0021.76 5.86c25.4-14.65 54.49-22.64 86.12-22.64 74.34 0 143 45.43 189.6 113.3 1.83 2.66 4.34 6 7 9.47l48.43 51a16 16 0 0022.42.33 16 16 0 00.32-22.43c-6.84-7.23-14-14.28-21.61-21-50-38.31-111.45-66.27-167.65-88L256 123.51z"/><path d="M255.66 400c-42.52 0-84.34-12.18-121.57-34.5a16 16 0 00-21.78 5.76l-17.84 30.66a16 16 0 005.8 21.94c40.42 24.31 85.5 37.5 131.57 37.5 75.3 0 145.42-46.73 192.51-116 1.77-2.6 4.2-5.81 6.8-9.17l-48.24-51.05a16 16 0 00-22.38-.34 16 16 0 00-.34 22.39c6.64 7 13.56 13.88 20.89 20.44-48.86 38.64-108.91 66.82-164.12 88.66l-18-97.4z"/>
+              </svg>
+
+            </button>
           </div>
         </div>
+
       </div>
 
-      <div class="error-box" *ngIf="erro" [@slideIn]>
-        <ion-icon name="alert-circle-outline"></ion-icon>
+      <div class="error-box" *ngIf="erro">
+        <svg class="raw-icon alert-icon" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm0 319.91a20 20 0 1120-20 20 20 0 01-20 20zm21.72-201.15l-5.74 122a16 16 0 01-32 0l-5.74-121.95a21.73 21.73 0 0121.5-22.69h.21a21.74 21.74 0 0121.77 22.7z"/>
+        </svg>
         <span>{{ erro }}</span>
       </div>
 
-      <ion-button 
-        expand="block" 
-        (click)="entrar()"
-        [disabled]="!emailValido || !senha || carregando" 
-        class="btn-entrar">
-        <ion-spinner *ngIf="carregando" name="crescent" style="--color: #ffffff;"></ion-spinner>
+      <button class="btn-entrar" (click)="entrar()" [disabled]="!emailValido || !senha || carregando">
+        <ion-spinner *ngIf="carregando" name="crescent"></ion-spinner>
         <span *ngIf="!carregando">Entrar na conta</span>
-      </ion-button>
+      </button>
 
       <div class="card-links">
         <button class="link-secundario" (click)="esqueceuSenha()">
@@ -96,6 +92,6 @@
       </div>
     </div>
 
-    <p class="versao">v1.0</p>
+    <p class="versao">{{ versao }}</p>
   </div>
 </ion-content>

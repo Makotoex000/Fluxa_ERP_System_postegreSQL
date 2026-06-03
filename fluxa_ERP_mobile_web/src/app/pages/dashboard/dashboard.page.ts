@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { UserService } from '../../services/user';
 import { SaleService } from '../../services/sale';
 import { SupplierService } from '../../services/supplier';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,7 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage implements OnInit, OnDestroy {
 
   totalProdutos = 0;
   totalVendas = 0;
@@ -22,15 +23,25 @@ export class DashboardPage implements OnInit {
   receitaTotal = 0;
   topProdutos: any[] = [];
   carregando = true;
+  private rotaSub: Subscription | null = null;
 
   constructor(
     private userService: UserService,
     private saleService: SaleService,
     private supplierService: SupplierService,
-    private router: Router
+    private router: Router,
   ) { }
 
-  ngOnInit() { this.carregarDados(); }
+  ngOnInit() {
+    this.carregarDados();
+    this.rotaSub = this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: any) => {
+        if (e.url.includes('/dashboard')) this.carregarDados();
+      });
+  }
+
+  ngOnDestroy() { this.rotaSub?.unsubscribe(); }
 
   carregarDados() {
     this.carregando = true;
@@ -61,11 +72,6 @@ export class DashboardPage implements OnInit {
   refresh(event: any) {
     this.carregarDados();
     setTimeout(() => event.target.complete(), 1500);
-  }
-
-  sair() {
-    localStorage.clear();
-    this.router.navigate(['/login'], { replaceUrl: true });
   }
 
   moeda(valor: number): string {

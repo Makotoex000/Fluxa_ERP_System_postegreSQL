@@ -1,75 +1,33 @@
-<ion-header class="ion-no-border fluxa-header-cyber">
-  <ion-toolbar style="--background: #0d0c1d; --border-width: 0; padding: 4px 8px;">
-    <ion-title style="font-weight: 800; color: #ffffff; font-size: 1.25rem; letter-spacing: -0.5px; text-transform: uppercase;">
-      Lista de Produtos
-    </ion-title>
-  </ion-toolbar>
+<div class="app-header">
+  <div class="page-title-bar">Lista de Produtos</div>
+</div>
+<div class="search-bar-wrap">
+  <input type="text" class="page-search" [(ngModel)]="busca" (input)="filtrar()" placeholder="Buscar por nome..." />
+</div>
 
-  <ion-toolbar style="--background: #0d0c1d; padding: 0 16px 12px; --min-height: 44px;">
-    <div class="responsive-container">
-      <ion-searchbar 
-        [(ngModel)]="busca" 
-        (ionInput)="filtrar()"
-        placeholder="Buscar por nome..."
-        debounce="300"
-        show-clear-button="always"
-        class="custom-searchbar-cyber">
-      </ion-searchbar>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content style="--background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);">
-  
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
+<ion-content class="page-content">
   <div class="responsive-container main-content">
-    <p *ngIf="!carregando" class="product-counter-cyber">
-      {{ produtosFiltrados.length }} produto(s) encontrado(s)
-    </p>
+
+    <p *ngIf="!carregando" class="product-counter-cyber">{{ produtosFiltrados.length }} produto(s) encontrado(s)</p>
 
     <div *ngIf="carregando" class="cards-grid-cyber">
-      <div *ngFor="let i of" class="skeleton-card-cyber"></div>
+      <div *ngFor="let i of [1,2,3,4]" class="skeleton-card-cyber"></div>
     </div>
 
     <div *ngIf="!carregando" class="cards-grid-cyber">
       <div *ngFor="let p of produtosFiltrados; trackBy: trackByProductId" class="product-card-cyber">
-        
-        <div class="card-top-cyber" style="display: flex; align-items: center; margin-bottom: 14px;">
-          
-          <div style="
-            width: 50px; 
-            height: 50px; 
-            border-radius: 12px; 
-            background: rgba(255, 255, 255, 0.04); 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            overflow: hidden; 
-            flex-shrink: 0;
-            margin-right: 12px;
-          ">
-            <img *ngIf="p.imageBase64" 
-                 [src]="p.imageBase64.includes('base64,') ? p.imageBase64 : 'data:image/jpeg;base64,' + p.imageBase64" 
-                 style="width: 100%; height: 100%; object-fit: cover;" />
-            
-            <svg *ngIf="!p.imageBase64" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 22px; height: 22px; color: #8b8ba8;">
+
+        <div class="card-top-cyber" style="display:flex;align-items:center;margin-bottom:14px;">
+          <div style="width:50px;height:50px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;margin-right:12px;">
+            <img *ngIf="p.imageBase64" [src]="p.imageBase64.includes('base64,') ? p.imageBase64 : 'data:image/jpeg;base64,' + p.imageBase64" style="width:100%;height:100%;object-fit:cover;" />
+            <svg *ngIf="!p.imageBase64" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:22px;height:22px;color:#8b8ba8;">
               <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
             </svg>
           </div>
-
-          <div class="info-meta-cyber" style="flex: 1; min-width: 0;">
-            <h3 class="product-name-cyber" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0;">
-              {{ p.title }}
-            </h3>
-            <span class="product-supplier-cyber" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; margin-top: 2px;">
-              Fornecedor: {{ p.category }}
-            </span>
+          <div style="flex:1;min-width:0;">
+            <h3 class="product-name-cyber" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0;">{{ p.title }}</h3>
+            <span class="product-supplier-cyber" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;margin-top:2px;">Fornecedor: {{ p.category }}</span>
           </div>
-
         </div>
 
         <div class="card-values-grid-cyber">
@@ -77,7 +35,6 @@
             <span class="block-label-cyber">Valor Compra</span>
             <span class="block-price-cyber">{{ moeda(p.purchase_price) }}</span>
           </div>
-
           <div class="value-block-cyber sale-block-cyber">
             <span class="block-label-cyber">Valor Venda</span>
             <span class="block-price-cyber">{{ moeda(p.sale_price) }}</span>
@@ -86,12 +43,8 @@
 
         <div class="card-footer-row-cyber">
           <div class="stock-badge-cyber">
-            Estoque: <span [style.color]="p.quantity < 10 ? '#f72585' : '#4cc9f0'" 
-                           [style.text-shadow]="p.quantity < 10 ? '0 0 8px rgba(247, 37, 133, 0.4)' : '0 0 6px rgba(76, 201, 240, 0.2)'">
-              {{ p.quantity }} unid.
-            </span>
+            Estoque: <span [style.color]="p.quantity < 10 ? '#f72585' : '#4cc9f0'">{{ p.quantity }} unid.</span>
           </div>
-          
           <div class="margin-badge-cyber">
             <span class="margin-label-cyber">Margem</span>
             <span class="margin-value-cyber">50%</span>
@@ -102,13 +55,8 @@
     </div>
 
     <div *ngIf="!carregando && produtosFiltrados.length === 0" class="empty-state-box-cyber">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="empty-icon-cyber">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.603Z" />
-      </svg>
       <h4>Nenhum produto encontrado</h4>
-      <p>Tente buscar por termos diferentes ou confira o estoque.</p>
     </div>
-  </div>
 
-  <div style="height: 40px;"></div>
+  </div>
 </ion-content>

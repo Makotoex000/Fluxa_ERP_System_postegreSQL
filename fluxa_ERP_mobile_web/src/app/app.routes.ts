@@ -8,6 +8,11 @@ export const routes: Routes = [
       import('./pages/login/login.page').then(m => m.LoginPage),
   },
   {
+    path: 'dashboard',
+    redirectTo: 'tabs/dashboard',
+    pathMatch: 'full'
+  },
+  {
     path: 'tabs',
     loadComponent: () =>
       import('./pages/tabs/tabs.page').then(m => m.TabsPage),
@@ -45,7 +50,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
-  { path: '**', redirectTo: 'login' },  {
+  { path: '**', redirectTo: 'login' },
+  {
     path: 'pdv',
     loadComponent: () => import('./pages/pdv/pdv.page').then( m => m.PdvPage)
   },

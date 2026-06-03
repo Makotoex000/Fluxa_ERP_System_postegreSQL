@@ -1,8 +1,63 @@
 /* src/app/pages/produtos/produtos.page.scss */
 
-/* ==========================================================================
-   Layout & Containers Responsivos
-   ========================================================================== */
+:host {
+  position: fixed;
+  top: calc(48px + env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+ion-content.page-content {
+  --background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);
+  --padding-bottom: 20px;
+  flex: 1;
+  min-height: 0;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 48px;
+  background: #0d0c1d;
+  flex-shrink: 0;
+}
+
+.search-bar-wrap {
+  background: #0d0c1d;
+  padding: 0 16px 12px;
+  flex-shrink: 0;
+}
+
+.page-search {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  outline: none;
+  height: 44px;
+  &::placeholder { color: #8b8ba8; }
+  &:focus { border-color: rgba(76,201,240,0.4); }
+}
+
+.page-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);
+}
+
 .responsive-container {
   max-width: 600px;
   margin: 0 auto;

@@ -1,12 +1,27 @@
 import { Component } from '@angular/core';
+import { appVersion } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-// ← Seus services reais, copiados do projeto Angular
+// Importando os ícones necessários
+import { addIcons } from 'ionicons';
+import { flash, mail, lockClosed, eyeOutline, eyeOffOutline, alertCircleOutline } from 'ionicons/icons';
+
+// Seus services reais
 import { UserService } from '../../services/user';
 import { UserAuthService } from '../../services/user-auth';
+
+// REGISTRANDO OS ÍCONES PARA O IONIC RECONHECER
+addIcons({
+  'flash': flash,
+  'mail': mail,
+  'lock-closed': lockClosed,
+  'eye-outline': eyeOutline,
+  'eye-off-outline': eyeOffOutline,
+  'alert-circle-outline': alertCircleOutline
+});
 
 @Component({
   selector: 'app-login',
@@ -24,6 +39,7 @@ export class LoginPage {
   emailValido = false;
   emailFocused = false;
   senhaFocused = false;
+  versao = `v${appVersion}`;
 
   constructor(
     private userService: UserService,
@@ -37,8 +53,21 @@ export class LoginPage {
   }
 
   esqueceuSenha() {
-    // TODO: Implementar fluxo de recuperação de senha
     alert('Funcionalidade em desenvolvimento');
+  }
+
+  onEmailClick() {
+    try {
+      const el = document.getElementById('emailInput') as HTMLInputElement | null;
+      if (el) el.focus();
+    } catch (e) {}
+  }
+
+  onSenhaClick() {
+    try {
+      const el = document.getElementById('senhaInput') as HTMLInputElement | null;
+      if (el) el.focus();
+    } catch (e) {}
   }
 
   entrar() {
@@ -50,15 +79,10 @@ export class LoginPage {
     this.carregando = true;
     this.erro = '';
 
-    // Chama o mesmo service que seu site web usa
     this.userService.login(this.email, this.senha).subscribe({
       next: (resposta) => {
-        // Salva o token (igual ao seu site)
         this.userAuthService.setUserToken(resposta.token);
-
         this.carregando = false;
-
-        // Vai para o dashboard
         this.router.navigate(['/tabs/dashboard'], { replaceUrl: true });
       },
       error: (err) => {

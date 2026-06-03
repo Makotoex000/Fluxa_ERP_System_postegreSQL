@@ -1,55 +1,27 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar style="--background: #0d0c1d; --border-width: 0; padding: 4px 8px;">
-    <ion-title style="font-weight: 800; color: #ffffff; font-size: 1.25rem; letter-spacing: -0.5px; text-transform: uppercase;">
-      Ponto de Venda
-    </ion-title>
-    
-    <ion-buttons slot="end">
-      <div class="cart-badge-wrap" *ngIf="totalItens > 0" style="position: relative; padding: 8px;">
-        <ion-icon name="cart" style="color: #4cc9f0; font-size: 26px; filter: drop-shadow(0 0 6px rgba(76, 201, 240, 0.4));"></ion-icon>
-        <span class="cart-badge" style="
-          position: absolute;
-          top: 2px;
-          right: 0px;
-          background: #f72585;
-          color: white;
-          font-size: 0.7rem;
-          font-weight: 800;
-          padding: 2px 6px;
-          border-radius: 10px;
-          border: 2px solid #0d0c1d;
-          box-shadow: 0 0 8px rgba(247, 37, 133, 0.6);
-        ">{{ totalItens }}</span>
-      </div>
-    </ion-buttons>
-  </ion-toolbar>
+<div class="app-header">
+  <div class="page-title-bar">Ponto de Venda</div>
+  <div class="cart-badge-wrap" *ngIf="totalItens > 0">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 26px; height: 26px; color: #4cc9f0; filter: drop-shadow(0 0 6px rgba(76, 201, 240, 0.4)); pointer-events: none;">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+    </svg>
+    <span class="cart-badge">{{ totalItens }}</span>
+  </div>
+</div>
 
-  <ion-toolbar style="--background: #0d0c1d; padding: 0 16px 12px; --min-height: 44px;">
-    <ion-searchbar
-      [(ngModel)]="busca"
-      (ionInput)="filtrar()"
-      placeholder="Buscar por nome..."
-      debounce="300"
-      style="
-        --background: rgba(255, 255, 255, 0.04);
-        --box-shadow: none;
-        --border-radius: 10px;
-        --color: #ffffff;
-        --placeholder-color: #8b8ba8;
-        --icon-color: #4cc9f0;
-        --clear-button-color: #8b8ba8;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 0;
-        height: 44px;
-      ">
-    </ion-searchbar>
-  </ion-toolbar>
-</ion-header>
+<div class="search-bar-wrap">
+  <input
+    type="text"
+    class="pdv-search"
+    [(ngModel)]="busca"
+    (input)="filtrar()"
+    placeholder="Buscar por nome..."
+  />
+</div>
 
-<ion-content style="--background: linear-gradient(135deg, #0d0c1d 0%, #16213e 100%);">
+<div class="pdv-scroll">
 
   <div *ngIf="carregando" style="padding: 12px 16px;">
-    <div *ngFor="let i of" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; height: 94px; margin-bottom: 10px; border: 1px solid rgba(255, 255, 255, 0.05);"></div>
+    <div *ngFor="let i of [1,2,3,4]" style="background: rgba(255,255,255,0.03); border-radius: 16px; height: 94px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);"></div>
   </div>
 
   <div *ngIf="!carregando" style="padding: 8px 16px;">
@@ -57,128 +29,82 @@
     <div *ngFor="let p of produtosFiltrados" style="
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255,255,255,0.02);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 14px;
       margin-bottom: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2);
     ">
 
-      <div style="
-        width: 50px; 
-        height: 50px; 
-        border-radius: 12px; 
-        background: rgba(255, 255, 255, 0.04); 
-        border: 1px solid rgba(255, 255, 255, 0.08); 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        overflow: hidden; 
-        flex-shrink: 0;
-        margin-right: 12px;
-      ">
-        <img *ngIf="p.imageBase64" [src]="p.imageBase64" style="width: 100%; height: 100%; object-fit: cover;" />
-        
-        <svg *ngIf="!p.imageBase64" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 22px; height: 22px; color: #8b8ba8;">
+      <div style="width:50px;height:50px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;margin-right:12px;pointer-events:none;">
+        <img *ngIf="p.imageBase64" [src]="p.imageBase64" style="width:100%;height:100%;object-fit:cover;" />
+        <svg *ngIf="!p.imageBase64" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:22px;height:22px;color:#8b8ba8;">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
         </svg>
       </div>
 
-      <div style="flex: 1; padding-right: 8px; min-width: 0;">
-        <div style="font-size: 0.95rem; font-weight: 700; color: #ffffff; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-          {{ p.title }}
-        </div>
-        <div style="font-size: 0.75rem; color: #8b8ba8; margin-top: 3px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-          Fornecedor: {{ p.category }}
-        </div>
-        
-        <div style="font-size: 0.78rem; color: #4cc9f0; font-weight: 700; margin-top: 6px; display: flex; align-items: center; gap: 4px; text-shadow: 0 0 6px rgba(76, 201, 240, 0.2);">
-          Estoque: {{ p.quantity }} unid.
-        </div>
+      <div style="flex:1;padding-right:8px;min-width:0;pointer-events:none;">
+        <div style="font-size:0.95rem;font-weight:700;color:#fff;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ p.title }}</div>
+        <div style="font-size:0.75rem;color:#8b8ba8;margin-top:3px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Fornecedor: {{ p.category }}</div>
+        <div style="font-size:0.78rem;color:#4cc9f0;font-weight:700;margin-top:6px;">Estoque: {{ p.quantity }} unid.</div>
       </div>
 
-      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0;">
-        
-        <div style="
-          font-size: 0.95rem;
-          font-weight: 800;
-          color: #f72585;
-          background: rgba(247, 37, 133, 0.1);
-          padding: 5px 10px;
-          border-radius: 8px;
-          border: 1px solid rgba(247, 37, 133, 0.2);
-          text-shadow: 0 0 8px rgba(247, 37, 133, 0.3);
-        ">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0;">
+
+        <div style="font-size:0.95rem;font-weight:800;color:#f72585;background:rgba(247,37,133,0.1);padding:5px 10px;border-radius:8px;border:1px solid rgba(247,37,133,0.2);pointer-events:none;">
           {{ moeda(p.sale_price) }}
         </div>
 
-        <div style="display: flex; align-items: center; background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 2px; border: 1px solid rgba(255,255,255,0.06);" *ngIf="quantidadeNoCarrinho(p) > 0">
-          <button style="background: transparent; color: #4cc9f0; padding: 4px 10px; font-size: 1.1rem; font-weight: bold;" (click)="removerDoCarrinho({product:p, quantity:quantidadeNoCarrinho(p), subtotal:0})">
-            <ion-icon name="remove-outline"></ion-icon>
-          </button>
-          <span style="font-size: 0.9rem; font-weight: 800; color: #ffffff; min-width: 20px; text-align: center;">{{ quantidadeNoCarrinho(p) }}</span>
-          <button style="background: transparent; color: #4cc9f0; padding: 4px 10px; font-size: 1.1rem; font-weight: bold;" (click)="adicionarAoCarrinho(p)">
-            <ion-icon name="add-outline"></ion-icon>
-          </button>
+        <div style="display:flex;align-items:center;gap:4px;" *ngIf="quantidadeNoCarrinho(p) > 0">
+          <button type="button" style="background:#1a1a2e;color:#4cc9f0;border:1px solid #4cc9f0;border-radius:6px;width:32px;height:32px;font-size:1.2rem;font-weight:700;cursor:pointer;" (click)="removerDoCarrinho({product:p, quantity:quantidadeNoCarrinho(p), subtotal:0})">-</button>
+          <span style="font-size:0.9rem;font-weight:800;color:#fff;min-width:20px;text-align:center;pointer-events:none;">{{ quantidadeNoCarrinho(p) }}</span>
+          <button type="button" style="background:#1a1a2e;color:#4cc9f0;border:1px solid #4cc9f0;border-radius:6px;width:32px;height:32px;font-size:1.2rem;font-weight:700;cursor:pointer;" (click)="adicionarAoCarrinho(p)">+</button>
         </div>
 
-        <button style="
-          background: transparent;
-          color: #ffffff;
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          background: rgba(255, 255, 255, 0.04);
-          border-radius: 8px;
-          padding: 6px 14px;
-          font-size: 0.8rem;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        " *ngIf="quantidadeNoCarrinho(p) === 0" (click)="adicionarAoCarrinho(p)">
-          <ion-icon name="add-outline" style="font-size: 1rem; color: #4cc9f0;"></ion-icon>
-          Adicionar
+        <button type="button" style="background:#f72585;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:0.85rem;font-weight:700;cursor:pointer;" *ngIf="quantidadeNoCarrinho(p) === 0" (click)="adicionarAoCarrinho(p)">
+          + Adicionar
         </button>
-      </div>
 
+      </div>
     </div>
 
-    <div *ngIf="produtosFiltrados.length === 0" style="text-align: center; padding: 40px 16px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); margin-top: 16px;">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 40px; height: 40px; color: #8b8ba8; margin: 0 auto 8px;">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.603Z" />
-      </svg>
-      <p style="color: #8b8ba8; font-size: 0.9rem; margin: 0; font-weight: 500;">Nenhum produto encontrado</p>
+    <div *ngIf="produtosFiltrados.length === 0" style="text-align:center;padding:40px 16px;background:rgba(255,255,255,0.02);border-radius:16px;border:1px solid rgba(255,255,255,0.05);margin-top:16px;">
+      <p style="color:#8b8ba8;font-size:0.9rem;margin:0;font-weight:500;">Nenhum produto encontrado</p>
     </div>
 
   </div>
 
   <div [style.height]="carrinho.length > 0 ? '175px' : '32px'"></div>
 
-</ion-content>
+</div>
 
 <div class="custom-cart-footer" *ngIf="carrinho.length > 0">
 
   <div class="cart-preview-scroll">
     <div *ngFor="let item of carrinho" class="custom-cart-chip">
-      <span class="chip-qty">{{ item.quantity }}x</span> {{ item.product.title }}
-      <ion-icon name="close-circle" (click)="removerItemCompleto(item)" class="chip-close-icon"></ion-icon>
+      <span class="chip-qty" style="pointer-events:none;">{{ item.quantity }}x</span>
+      <span style="pointer-events:none;">{{ item.product.title }}</span>
+      <button type="button" class="chip-close-btn" (click)="removerItemCompleto(item)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;pointer-events:none;">
+          <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+        </svg>
+      </button>
     </div>
   </div>
 
-  <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px;">
-    <div>
-      <div style="color: #8b8ba8; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Total do Carrinho</div>
-      <div style="color: #ffffff; font-size: 1.6rem; font-weight: 800; line-height: 1.1; margin-top: 3px; letter-spacing: -0.5px;">{{ moeda(totalValor) }}</div>
-      <div style="color: #4cc9f0; font-size: 0.75rem; font-weight: 700; margin-top: 3px; text-shadow: 0 0 6px rgba(76,201,240,0.2);">{{ totalItens }} item(s) selecionado(s)</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;">
+    <div style="pointer-events:none;">
+      <div style="color:#8b8ba8;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Total do Carrinho</div>
+      <div style="color:#fff;font-size:1.6rem;font-weight:800;line-height:1.1;margin-top:3px;letter-spacing:-0.5px;">{{ moeda(totalValor) }}</div>
+      <div style="color:#4cc9f0;font-size:0.75rem;font-weight:700;margin-top:3px;">{{ totalItens }} item(s) selecionado(s)</div>
     </div>
-    
-    <button class="btn-submit-sale-cyber" (click)="confirmarVenda()" [disabled]="finalizando">
-      <ion-spinner *ngIf="finalizando" name="crescent" style="width: 18px; height: 18px; --color: #ffffff;"></ion-spinner>
-      <span *ngIf="!finalizando">Finalizar Venda</span>
+
+    <button type="button" class="btn-submit-sale-cyber" (click)="confirmarVenda()" [disabled]="finalizando">
+      <span *ngIf="finalizando" style="pointer-events:none;">...</span>
+      <span *ngIf="!finalizando" style="pointer-events:none;">Finalizar Venda</span>
     </button>
   </div>
 
